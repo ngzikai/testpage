@@ -1,0 +1,28 @@
+sudo: required
+services:
+  - docker
+
+script:
+  - echo "Skipping Tests..."
+
+after_success:
+  - docker build -t ngzikai/testpage .
+
+  #Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  #Take images and push to docker hub
+  - docker push ngzikai/testpage
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-southeast-1
+  app: Webmon
+  env: Webmon-env
+  bucket_name: elasticbeanstalk-ap-southeast-1-367158308372
+  bucket_path: webmon
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS
+  secret_access_key:
+    secure: $AWS_SECRET
