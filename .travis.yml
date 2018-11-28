@@ -17,10 +17,10 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   region: ap-southeast-1
-  app: Webmon
-  env: Webmon-env
+  app: Testpage
+  env: Testpage-env
   bucket_name: elasticbeanstalk-ap-southeast-1-367158308372
-  bucket_path: webmon
+  bucket_path: testpage
   on:
     branch: master
   access_key_id: $AWS_ACCESS
